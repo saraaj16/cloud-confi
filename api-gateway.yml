@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: api-gateway
+    cloud:
+      config:
+        enabled: true
+        uri: http://localhost:8888  # Adresse du Config Server
   cloud:
     gateway:
       routes:
@@ -19,15 +23,12 @@ spring:
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/profile/**
-          filters:
-            - JwtGatewayFilter
+
         - id: auth-service-admin
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/admin/**
-          filters:
-            - JwtGatewayFilter
-            - RoleCheck=ADMINISTRATEUR
+
 eureka:
   client:
     service-url:
