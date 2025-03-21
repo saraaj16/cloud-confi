@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: microservice-users-authentification
+    upload-dir: ""
+
+  datasource:
+    url: "jdbc:oracle:thin:@localhost:1521:XE"
+    username: "C##MICROAUTH"
+    password: "sara"
+    driver-class-name: "oracle.jdbc.OracleDriver"
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.OracleDialect
+    show-sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "Saraaitelhaj93@gmail.com"
+    password: "vgznulowgulssbww"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+user:
+  profile:
+    photo:
+      upload-dir: ""
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans
+
+jwt:
+  secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
+  expiration: 86400000 # 1 jour en millisecondes
+  header: Authorization
+  prefix: Bearer
+
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework.web.cors: DEBUG
+    org.springframework.web.filter.CorsFilter: DEBUG
+    org.springframework: DEBUG
+    ma.inwi.microserviceusersauthentification: DEBUG
+    org.springframework.beans.factory: TRACE
+    org.springframework.context.annotation: TRACE

@@ -1,0 +1,14 @@
+server:
+  port: 8888  # Le Config Service tourne sur le port 8888
+
+spring:
+  application:
+    name: config-service
+
+  cloud:
+    config:
+      server:
+        git:
+          # Chemin local vers le dépôt contenant les fichiers de config
+          uri: file://${user.home}/cloud-conf
+          clone-on-start: true

@@ -1,0 +1,15 @@
+server:
+  port: 8761  # Port par défaut de Eureka Server
+
+spring:
+  application:
+    name: discovery-service
+
+eureka:
+  instance:
+    hostname: localhost
+  server:
+    enable-self-preservation: true  # Auto-préservation activée
+  client:
+    register-with-eureka: false     # Le serveur ne s’enregistre pas lui-même
+    fetch-registry: false
