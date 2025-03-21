@@ -1,0 +1,36 @@
+server:
+  port: 8080  # API Gateway sur le port 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service-login
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/login/**
+        - id: auth-service-reset-password
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/reset-password/**
+        - id: auth-service-profile
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/profile/**
+          filters:
+            - JwtGatewayFilter
+        - id: auth-service-admin
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/admin/**
+          filters:
+            - JwtGatewayFilter
+            - RoleCheck=ADMINISTRATEUR
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
