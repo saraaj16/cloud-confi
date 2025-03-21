@@ -10,5 +10,5 @@ spring:
       server:
         git:
           # Chemin local vers le dépôt contenant les fichiers de config
-          uri: file://${user.home}/cloud-conf
+          uri: https://github.com/saraaj16/cloud-confi.git
           clone-on-start: true

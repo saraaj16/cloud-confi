@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: api-gateway
-
   cloud:
     gateway:
       routes:
@@ -29,7 +28,6 @@ spring:
           filters:
             - JwtGatewayFilter
             - RoleCheck=ADMINISTRATEUR
-
 eureka:
   client:
     service-url:
