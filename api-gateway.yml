@@ -25,6 +25,8 @@ spring:
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/admin/**
+
+
   autoconfigure:
     exclude:
           - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration

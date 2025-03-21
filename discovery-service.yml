@@ -17,3 +17,4 @@ eureka:
   client:
     register-with-eureka: false     # Le serveur ne s’enregistre pas lui-même
     fetch-registry: false
+

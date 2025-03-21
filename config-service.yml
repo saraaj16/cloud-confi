@@ -12,3 +12,8 @@ spring:
           # Chemin local vers le dépôt contenant les fichiers de config
           uri: https://github.com/saraaj16/cloud-confi.git
           clone-on-start: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
