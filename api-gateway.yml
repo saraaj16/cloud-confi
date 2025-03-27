@@ -11,7 +11,7 @@ spring:
         - id: users-auth-public
           uri: http://localhost:8081
           predicates:
-            - Path=/auth/login
+            - Path=/auth/login/**
             - Path=/reset-password/**
         # Endpoints réservés au rôle ADMINISTRATEUR
         - id: users-auth-admin
