@@ -34,14 +34,9 @@ spring:
                     allowedOrigins:
                       - "http://localhost:3000"
                     allowedMethods:
-                      - GET
-                      - POST
-                      - PUT
-                      - DELETE
-                      - OPTIONS
+                      - "*"
                     allowedHeaders:
-                      - Authorization
-                      - Content-Type
+                        - "*"
                     allowCredentials: true
 logging:
   level:
