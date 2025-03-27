@@ -10,9 +10,11 @@ spring:
         # Endpoints accessibles sans authentification
         - id: users-auth-public
           uri: http://localhost:8081
+          order: -1
           predicates:
             - Path=/auth/login/**
             - Path=/reset-password/**
+
         # Endpoints réservés au rôle ADMINISTRATEUR
         - id: users-auth-admin
           uri: http://localhost:8081
@@ -30,14 +32,15 @@ spring:
             - Path=/**
       globalcors:
         corsConfigurations:
-                  '[/**]':
-                    allowedOrigins:
-                      - "http://localhost:3000"
-                    allowedMethods:
-                      - "*"
-                    allowedHeaders:
-                        - "*"
-                    allowCredentials: true
+          '[/**]':
+            allowedOriginPatterns:
+              - "http://localhost:3000"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG

@@ -54,8 +54,6 @@ server:
 
 logging:
   level:
-    org.springframework.web.cors: DEBUG
-    org.springframework.web.filter.CorsFilter: DEBUG
     org.springframework: DEBUG
     ma.inwi.microserviceusersauthentification: DEBUG
     org.springframework.beans.factory: TRACE
