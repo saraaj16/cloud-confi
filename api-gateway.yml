@@ -14,8 +14,6 @@ spring:
           predicates:
             - Path=/auth/login, /auth/login/**
             - Path=/reset-password/**
-
-
         # Endpoints réservés au rôle ADMINISTRATEUR
         - id: users-auth-admin
           uri: http://localhost:8081
@@ -36,7 +34,12 @@ spring:
                   '[/**]':
                     allowedOrigins: "http://localhost:3000"
                     allowedHeaders: "*"
-                    allowedMethods: "*"
+                    allowedMethods:
+                      - POST
+                      - GET
+                      - PUT
+                      - DELETE
+                      - PATCH
 
 logging:
   level:
