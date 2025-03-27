@@ -29,17 +29,17 @@ spring:
           uri: http://localhost:8081
           predicates:
             - Path=/**
-      globalcors:
-        corsConfigurations:
-                  '[/**]':
-                    allowedOrigins: "http://localhost:3000"
-                    allowedHeaders: "*"
-                    allowedMethods:
-                      - POST
-                      - GET
-                      - PUT
-                      - DELETE
-                      - PATCH
+#      globalcors:
+#        corsConfigurations:
+#                  '[/**]':
+#                    allowedOrigins: "http://localhost:3000"
+#                    allowedHeaders: "*"
+#                    allowedMethods:
+#                      - POST
+#                      - GET
+#                      - PUT
+#                      - DELETE
+#                      - PATCH
 
 logging:
   level:
