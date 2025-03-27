@@ -11,7 +11,7 @@ spring:
         - id: users-auth-public
           uri: http://localhost:8081
           predicates:
-            - Path=/auth/login/**
+            - Path=/auth/login
             - Path=/reset-password/**
         # Endpoints réservés au rôle ADMINISTRATEUR
         - id: users-auth-admin
@@ -28,3 +28,21 @@ spring:
           uri: http://localhost:8081
           predicates:
             - Path=/**
+      globalcors:
+        corsConfigurations:
+                  '[/**]':
+                    allowedOrigins:
+                      - "http://localhost:3000"
+                    allowedMethods:
+                      - GET
+                      - POST
+                      - PUT
+                      - DELETE
+                      - OPTIONS
+                    allowedHeaders:
+                      - Authorization
+                      - Content-Type
+                    allowCredentials: true
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
