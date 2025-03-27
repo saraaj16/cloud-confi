@@ -33,12 +33,10 @@ spring:
             - Path=/**
       globalcors:
         corsConfigurations:
-          '[/**]':
-            allowedMethods:
-              - "*"
-            allowedHeaders:
-              - "*"
-            allowCredentials: true
+                  '[/**]':
+                    allowedOrigins: "http://localhost:3000"
+                    allowedHeaders: "*"
+                    allowedMethods: "*"
 
 logging:
   level:
