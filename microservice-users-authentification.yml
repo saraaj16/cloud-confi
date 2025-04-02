@@ -8,7 +8,7 @@ spring:
     upload-dir: ""
 
   datasource:
-    url: "jdbc:oracle:thin:@localhost:1521:XE"
+    url: "jdbc:oracle:thin:@host.docker.internal:1521:XE"
     username: "C##MICROAUTH"
     password: "sara"
     driver-class-name: "oracle.jdbc.OracleDriver"
