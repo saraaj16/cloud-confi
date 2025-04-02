@@ -41,7 +41,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: beans
+        include: beans, health,info
+  endpoint:
+    health:
+          show-details: always
 
 jwt:
   secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
@@ -62,4 +65,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+
 
