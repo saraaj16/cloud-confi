@@ -29,7 +29,3 @@ spring:
 jwt:
   secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
   expiration: 86400000 # 24h in milliseconds
-
-# Auth service configuration
-auth-service:
-  base-url: http://localhost:8080

@@ -7,7 +7,7 @@ spring:
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: discovery-service
   server:
     enable-self-preservation: true  # Auto-préservation activée
   client:
