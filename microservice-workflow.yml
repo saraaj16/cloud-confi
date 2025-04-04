@@ -56,4 +56,6 @@ eureka:
       defaultZone: http://discovery-service:8761/eureka/
 
 
-
+user:
+  service:
+    url: http://microservice-users-authentification:8081

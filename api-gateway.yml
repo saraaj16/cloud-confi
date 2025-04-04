@@ -14,6 +14,12 @@ spring:
           predicates:
             - Path=/auth/login, /auth/login/**
             - Path=/reset-password/**
+        # Endpoint pour les missions (public)
+        - id: users-auth-missions
+          uri: http://microservice-users-authentification:8081
+          order: -1
+          predicates:
+            - Path=/missions/**
         # Endpoints réservés au rôle ADMINISTRATEUR
         - id: users-auth-admin
           uri: http://microservice-users-authentification:8081
