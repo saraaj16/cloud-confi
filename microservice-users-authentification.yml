@@ -1,7 +1,7 @@
 spring:
   application:
     name: microservice-users-authentification
-    upload-dir: ""
+    upload-dir: "C:/Users/Swerera's laptop/Desktop/PFE/pilotage_backend/photo-de-profil"
 
   datasource:
     url: "jdbc:oracle:thin:@host.docker.internal:1521:XE"
@@ -14,6 +14,13 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.OracleDialect
     show-sql: true
+
+
+  web:
+    resources:
+      static-locations: file:${user.profile.photo.upload-dir}/
+  main:
+    allow-circular-references: true
 
   mail:
     host: smtp.gmail.com
