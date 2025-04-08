@@ -27,12 +27,10 @@ spring:
           starttls:
             enable: true
 
-
 user:
   profile:
     photo:
-      upload-dir: C:\Users\Swerera's laptop\Desktop\PFE\pilotage_backend\photo-de-profil
-
+      upload-dir: C:/Users/Swerera's laptop/Desktop/PFE/pilotage_backend/uploads/profile-photos
 management:
   endpoints:
     web:
