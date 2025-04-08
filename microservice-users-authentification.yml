@@ -37,7 +37,8 @@ spring:
 user:
   profile:
     photo:
-      upload-dir: C:/Users/Swerera's laptop/Desktop/PFE/pilotage_backend/photo-de-profil
+      upload-dir: file:///C:/Users/Swerera's%20laptop/Desktop/PFE/pilotage_backend/photo-de-profil/
+
 management:
   endpoints:
     web:
