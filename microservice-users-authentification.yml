@@ -63,10 +63,17 @@ logging:
     ma.inwi.microserviceusersauthentification: DEBUG
     org.springframework.beans.factory: TRACE
     org.springframework.context.annotation: TRACE
+
+
 eureka:
-  client:
-    service-url:
-      defaultZone: http://discovery-service:8761/eureka/
+  instance:
+    preferIpAddress: true
+    hostname: eureka-0
+    client:
+      registerWithEureka: true
+      fetchRegistry: true
+      serviceUrl:
+        defaultZone: http://eureka-0.eureka.default.svc.cluster.local:eureka/eureka
 
 
 

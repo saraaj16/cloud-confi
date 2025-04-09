@@ -7,10 +7,12 @@ spring:
 
 eureka:
   instance:
-    hostname: discovery-service
+    hostname: "${HOSTNAME}.eureka"
   server:
     enable-self-preservation: true  # Auto-préservation activée
   client:
     register-with-eureka: false     # Le serveur ne s’enregistre pas lui-même
     fetch-registry: false
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_ADDRESS}
 
