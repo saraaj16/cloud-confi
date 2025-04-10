@@ -1,3 +1,4 @@
+#config-service
 server:
   port: 8888  # Le Config Service tourne sur le port 8888
 

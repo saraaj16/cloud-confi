@@ -1,15 +1,14 @@
-#microservice-users-authentification
+#microserviceprojets
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
-    name: microservice-users-authentification
-    upload-dir: "C:/Users/Swerera's laptop/Desktop/PFE/pilotage_backend/photo-de-profil"
+    name: microserviceprojets
 
   datasource:
     url: "jdbc:oracle:thin:@host.docker.internal:1521:XE"
-    username: "C##MICROAUTH"
+    username: "C##MICROPROJET"
     password: "sara"
     driver-class-name: "oracle.jdbc.OracleDriver"
 
@@ -18,11 +17,6 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.OracleDialect
     show-sql: true
-
-
-  web:
-    resources:
-      static-locations: file:${user.profile.photo.upload-dir}/
   main:
     allow-circular-references: true
 
@@ -38,10 +32,6 @@ spring:
           starttls:
             enable: true
 
-user:
-  profile:
-    photo:
-      upload-dir: file:///C:/Users/Swerera's%20laptop/Desktop/PFE/pilotage_backend/photo-de-profil/
 
 management:
   endpoints:
@@ -50,20 +40,13 @@ management:
         include: beans, health,info
   endpoint:
     health:
-          show-details: always
+      show-details: always
 
 jwt:
   secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
   expiration: 86400000 # 1 jour en millisecondes
   header: Authorization
   prefix: Bearer
-
-logging:
-  level:
-    org.springframework: DEBUG
-    ma.inwi.microserviceusersauthentification: DEBUG
-    org.springframework.beans.factory: TRACE
-    org.springframework.context.annotation: TRACE
 
 
 eureka:

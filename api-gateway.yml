@@ -1,3 +1,4 @@
+#api-gateway
 server:
   port: 8080
 
@@ -7,7 +8,7 @@ spring:
   cloud:
     gateway:
       routes:
-        # Endpoints accessibles sans authentification
+        # Endpoints accessibles sans authentification (authentification et réinitialisation de mot de passe)
         - id: users-auth-public
           uri: http://microservice-users-authentification:8081
           order: -1
@@ -25,16 +26,26 @@ spring:
           uri: http://microservice-users-authentification:8081
           predicates:
             - Path=/admin/**
-        # Endpoints nécessitant une authentification
+        # Endpoints nécessitant une authentification (profil utilisateur)
         - id: users-auth-profile
           uri: http://microservice-users-authentification:8081
           predicates:
             - Path=/profile/**
-        # Toutes les autres requêtes nécessitent une authentification
+        # Toutes les autres requêtes nécessitent une authentification (par défaut)
         - id: users-auth-default
           uri: http://microservice-users-authentification:8081
           predicates:
             - Path=/**
+        # Nouveaux endpoints pour la gestion des projets
+        - id: projets-api
+          uri: http://microservice-projets:8082
+          predicates:
+            - Path=/api/projets/**
+        # Nouveaux endpoints pour la gestion des templates
+        - id: templates-api
+          uri: http://microservice-projets:8082
+          predicates:
+            - Path=/api/templates/**
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -55,8 +66,10 @@ eureka:
   instance:
     preferIpAddress: true
     hostname: eureka-0
-    client:
-      registerWithEureka: true
-      fetchRegistry: true
-      serviceUrl:
-        defaultZone: http://eureka-0.eureka.default.svc.cluster.local:eureka/eureka
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-0.eureka.default.svc.cluster.local:eureka/eureka
+
+
