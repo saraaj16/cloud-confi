@@ -40,12 +40,12 @@ spring:
         - id: projets-api
           uri: http://microservice-projets:8082
           predicates:
-            - Path=/api/projets/**
+            - Path=/api/projets/**, /api/projets
         # Nouveaux endpoints pour la gestion des templates
         - id: templates-api
           uri: http://microservice-projets:8082
           predicates:
-            - Path=/api/templates/**
+            - Path=/api/templates/**, /api/templates
       globalcors:
         corsConfigurations:
           '[/**]':
