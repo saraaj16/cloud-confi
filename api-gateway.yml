@@ -36,11 +36,11 @@ spring:
         - id: projects-route
           uri: http://microserviceprojets:8082
           predicates:
-            - Path=/projects/**
+            - Path=/api/projects/**, /api/projects
         - id: templates-route
           uri: http://microserviceprojets:8082
           predicates:
-            - Path=/templates/**
+            - Path=/api/templates/**, /api/templates
 
       globalcors:
         corsConfigurations:
