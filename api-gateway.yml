@@ -1,4 +1,3 @@
-#api-gateway
 server:
   port: 8080
 
@@ -8,44 +7,41 @@ spring:
   cloud:
     gateway:
       routes:
-        # Endpoints accessibles sans authentification (authentification et réinitialisation de mot de passe)
+        # Routes pour le microservice d'authentification des utilisateurs
         - id: users-auth-public
           uri: http://microservice-users-authentification:8081
           order: -1
           predicates:
             - Path=/auth/login, /auth/login/**
             - Path=/reset-password/**
-        # Endpoint pour les missions (public)
         - id: users-auth-missions
           uri: http://microservice-users-authentification:8081
           order: -1
           predicates:
             - Path=/missions/**
-        # Endpoints réservés au rôle ADMINISTRATEUR
         - id: users-auth-admin
           uri: http://microservice-users-authentification:8081
           predicates:
             - Path=/admin/**
-        # Endpoints nécessitant une authentification (profil utilisateur)
         - id: users-auth-profile
           uri: http://microservice-users-authentification:8081
           predicates:
             - Path=/profile/**
-        # Toutes les autres requêtes nécessitent une authentification (par défaut)
         - id: users-auth-default
           uri: http://microservice-users-authentification:8081
           predicates:
             - Path=/**
-        # Nouveaux endpoints pour la gestion des projets
-        - id: projets-api
-          uri: http://microservice-projets:8082
+
+        # Routes pour le nouveau microservice (microserviceprojets)
+        - id: projects-route
+          uri: http://microserviceprojets:8082
           predicates:
-            - Path=/api/projets/**, /api/projets
-        # Nouveaux endpoints pour la gestion des templates
-        - id: templates-api
-          uri: http://microservice-projets:8082
+            - Path=/projects/**
+        - id: templates-route
+          uri: http://microserviceprojets:8082
           predicates:
-            - Path=/api/templates/**, /api/templates
+            - Path=/templates/**
+
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -71,5 +67,3 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://eureka-0.eureka.default.svc.cluster.local:eureka/eureka
-
-
