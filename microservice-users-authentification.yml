@@ -47,10 +47,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: beans, health,info
+        include: beans, health, info
   endpoint:
     health:
-          show-details: always
+      show-details: always
 
 jwt:
   secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
@@ -60,10 +60,10 @@ jwt:
 
 logging:
   level:
-    org.springframework: DEBUG
-    ma.inwi.microserviceusersauthentification: DEBUG
-    org.springframework.beans.factory: TRACE
-    org.springframework.context.annotation: TRACE
+    root: error
+    org.springframework: error
+    ma.inwi.microserviceusersauthentification: error
+
 
 
 eureka:
