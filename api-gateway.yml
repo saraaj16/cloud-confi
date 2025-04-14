@@ -22,7 +22,7 @@ spring:
         - id: users-auth-admin
           uri: http://microservice-users-authentification:8081
           predicates:
-            - Path=/admin/**
+            - Path=/admin/**, /admin/equipes/**
         - id: users-auth-profile
           uri: http://microservice-users-authentification:8081
           predicates:
