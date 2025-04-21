@@ -44,4 +44,19 @@ management:
     health:
       show-details: always
 
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: eureka-0
+    client:
+      registerWithEureka: true
+      fetchRegistry: true
+      serviceUrl:
+        defaultZone: http://eureka-0.eureka.default.svc.cluster.local:eureka/eureka
 
+
+jwt:
+  secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
+  expiration: 86400000 # 1 jour en millisecondes
+  header: Authorization
+  prefix: Bearer
