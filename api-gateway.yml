@@ -32,7 +32,7 @@ spring:
           predicates:
             - Path=/**
 
-        # Routes pour le nouveau microservice (microserviceprojets)
+        # Routes pour le microservice projets
         - id: projects-route
           uri: http://microserviceprojets:8082
           predicates:
@@ -41,6 +41,24 @@ spring:
           uri: http://microserviceprojets:8082
           predicates:
             - Path=/api/templates/**, /api/templates
+
+        # Nouvelles routes pour les étapes de projet
+        - id: etapes-projet-route
+          uri: http://microserviceprojets:8082
+          predicates:
+            - Path=/api/etapes-projet/**, /api/etapes-projet
+
+        # Nouvelles routes pour les étapes de template
+        - id: etapes-template-route
+          uri: http://microserviceprojets:8082
+          predicates:
+            - Path=/api/etapes-template/**, /api/etapes-template
+
+        # Route pour les projets (correction du chemin)
+        - id: projets-route
+          uri: http://microserviceprojets:8082
+          predicates:
+            - Path=/api/projets/**, /api/projets
 
       globalcors:
         corsConfigurations:
