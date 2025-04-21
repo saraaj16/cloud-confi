@@ -7,7 +7,8 @@ spring:
     name: microserviceprojets
 
   datasource:
-    url: "jdbc:oracle:thin:@host.docker.internal:1521:XE"
+    url: "jdbc:oracle:thin:@localhost:1521:XE"
+
     username: "C##MICROPROJET"
     password: "sara"
     driver-class-name: "oracle.jdbc.OracleDriver"
@@ -17,20 +18,21 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.OracleDialect
     show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        default_batch_fetch_size: 20
+
   main:
     allow-circular-references: true
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+      rest:
+        pageSerializationMode: VIA_DTO
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: "Saraaitelhaj93@gmail.com"
-    password: "vgznulowgulssbww"
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
 
 
 management:
@@ -41,23 +43,5 @@ management:
   endpoint:
     health:
       show-details: always
-
-jwt:
-  secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
-  expiration: 86400000 # 1 jour en millisecondes
-  header: Authorization
-  prefix: Bearer
-
-
-eureka:
-  instance:
-    preferIpAddress: true
-    hostname: eureka-0
-    client:
-      registerWithEureka: true
-      fetchRegistry: true
-      serviceUrl:
-        defaultZone: http://eureka-0.eureka.default.svc.cluster.local:eureka/eureka
-
 
 
