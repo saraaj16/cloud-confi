@@ -5,6 +5,11 @@ server:
 spring:
   application:
     name: discovery-service
+  devtools:
+    restart:
+        enabled: true
+        livereload:
+          enabled: true
 
 eureka:
   instance:
@@ -16,4 +21,3 @@ eureka:
     fetch-registry: false
     serviceUrl:
       defaultZone: ${EUREKA_SERVER_ADDRESS}
-

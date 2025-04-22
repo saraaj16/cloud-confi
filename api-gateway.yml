@@ -71,6 +71,11 @@ spring:
               - PUT
               - DELETE
               - PATCH
+  devtools:
+    restart:
+        enabled: true
+        livereload:
+          enabled: true
 
 logging:
   level:

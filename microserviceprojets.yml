@@ -32,6 +32,11 @@ spring:
         default-page-size: 10
       rest:
         pageSerializationMode: VIA_DTO
+  devtools:
+    restart:
+        enabled: true
+        livereload:
+          enabled: true
 
 
 

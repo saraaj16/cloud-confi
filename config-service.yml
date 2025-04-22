@@ -13,6 +13,11 @@ spring:
           # Chemin local vers le dépôt contenant les fichiers de config
           uri: https://github.com/saraaj16/cloud-confi.git
           clone-on-start: true
+  devtools:
+    restart:
+        enabled: true
+        livereload:
+          enabled: true
 
 eureka:
   instance:
