@@ -25,7 +25,6 @@ spring:
 
   datasource:
     url: "jdbc:oracle:thin:@host.docker.internal:1521:XE"
-
     username: "C##MICROPROJET"
     password: "sara"
     driver-class-name: "oracle.jdbc.OracleDriver"
