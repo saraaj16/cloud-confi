@@ -10,14 +10,14 @@ spring:
         # Authentication service routes
         - id: users-auth-public
           uri: http://microservice-users-authentification:8081
-          order: -1
           predicates:
             - Path=/auth/login,/reset-password/**
+          order: -1
         - id: users-auth-missions
           uri: http://microservice-users-authentification:8081
-          order: -1
           predicates:
             - Path=/missions/**
+          order: -1
         - id: users-auth-admin
           uri: http://microservice-users-authentification:8081
           predicates:
@@ -26,16 +26,11 @@ spring:
           uri: http://microservice-users-authentification:8081
           predicates:
             - Path=/profile/**
-        - id: users-auth-default
-          uri: http://microservice-users-authentification:8081
-          predicates:
-            - Path=/**
-
         # Project service routes
-        - id: projects-route
+        - id: projets-route
           uri: http://microserviceprojets:8082
           predicates:
-            - Path=/api/projects/**
+            - Path=/api/projets/**
         - id: templates-route
           uri: http://microserviceprojets:8082
           predicates:
@@ -48,11 +43,11 @@ spring:
           uri: http://microserviceprojets:8082
           predicates:
             - Path=/api/etapes-template/**
-        - id: projets-route
-          uri: http://microserviceprojets:8082
+        # Default route for authentication service
+        - id: users-auth-default
+          uri: http://microservice-users-authentification:8081
           predicates:
-            - Path=/api/projets/**
-
+            - Path=/**
       globalcors:
         corsConfigurations:
           '[/**]':
