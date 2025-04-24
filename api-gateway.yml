@@ -16,7 +16,7 @@ spring:
           predicates:
             - Path=/auth/**, /reset-password/**, /profile/**, /admin/**, /missions/**
         - id: projects-service
-          uri: lb://microservice-projets
+          uri: lb://microserviceprojets
           predicates:
             - Path=/api/projects/**, /api/templates/**, /api/etapes-**
       globalcors:
