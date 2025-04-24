@@ -6,15 +6,18 @@ spring:
     name: discovery-service
 
 eureka:
+  instance:
+    hostname: discovery-service
   client:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://discovery-service:8761/eureka/
   server:
-    enableSelfPreservation: false # Optional: Disable self-preservation for local development
+    enableSelfPreservation: false
+    waitTimeInMsWhenSyncEmpty: 0
 
 logging:
   level:
-    com.netflix.eureka: DEBUG
-    com.netflix.discovery: DEBUG
+    com.netflix.eureka: INFO
+    com.netflix.discovery: INFO

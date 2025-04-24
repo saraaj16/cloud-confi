@@ -6,86 +6,36 @@ spring:
     name: gateway-api
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
       routes:
-        # Routes pour le microservice d'authentification des utilisateurs
-        - id: users-auth-public
-          uri: http://microservice-users-authentification:8081
-          order: -1
+        - id: users-auth
+          uri: lb://microservice-users-authentification
           predicates:
-            - Path=/auth/login, /auth/login/**
-            - Path=/reset-password/**
-        - id: users-auth-missions
-          uri: http://microservice-users-authentification:8081
-          order: -1
+            - Path=/auth/**, /reset-password/**, /profile/**, /admin/**, /missions/**
+        - id: projects-service
+          uri: lb://microservice-projets
           predicates:
-            - Path=/missions/**
-        - id: users-auth-admin
-          uri: http://microservice-users-authentification:8081
-          predicates:
-            - Path=/admin/**, /admin/equipes/**
-        - id: users-auth-profile
-          uri: http://microservice-users-authentification:8081
-          predicates:
-            - Path=/profile/**
-        - id: users-auth-default
-          uri: http://microservice-users-authentification:8081
-          predicates:
-            - Path=/**
-
-        # Routes pour le microservice projets
-        - id: projects-route
-          uri: http://microserviceprojets:8082
-          predicates:
-            - Path=/api/projects/**, /api/projects
-        - id: templates-route
-          uri: http://microserviceprojets:8082
-          predicates:
-            - Path=/api/templates/**, /api/templates
-
-        # Nouvelles routes pour les étapes de projet
-        - id: etapes-projet-route
-          uri: http://microserviceprojets:8082
-          predicates:
-            - Path=/api/etapes-projet/**, /api/etapes-projet
-
-        # Nouvelles routes pour les étapes de template
-        - id: etapes-template-route
-          uri: http://microserviceprojets:8082
-          predicates:
-            - Path=/api/etapes-template/**, /api/etapes-template
-
-        # Route pour les projets (correction du chemin)
-        - id: projets-route
-          uri: http://microserviceprojets:8082
-          predicates:
-            - Path=/api/projets/**, /api/projets
-
+            - Path=/api/projects/**, /api/templates/**, /api/etapes-**
       globalcors:
         corsConfigurations:
           '[/**]':
             allowedOrigins: "http://localhost:5173"
+            allowedMethods: "*"
             allowedHeaders: "*"
-            allowedMethods:
-              - POST
-              - GET
-              - PUT
-              - DELETE
-              - PATCH
-  devtools:
-    restart:
-        enabled: true
-        livereload:
-          enabled: true
+
+eureka:
+  instance:
+    hostname: api-gateway
+    preferIpAddress: false
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka/
+    healthcheck:
+      enabled: true
 
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
-
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
