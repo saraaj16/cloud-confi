@@ -65,7 +65,7 @@ jwt:
 
 eureka:
   instance:
-    hostname: microservice-projets
+    hostname: microserviceprojets
     preferIpAddress: false
   client:
     serviceUrl:
