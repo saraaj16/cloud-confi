@@ -1,23 +1,20 @@
-#discovery-service
 server:
-  port: 8761  # Port par défaut de Eureka Server
+  port: 8761
 
 spring:
   application:
     name: discovery-service
-  devtools:
-    restart:
-        enabled: true
-        livereload:
-          enabled: true
 
 eureka:
-  instance:
-    hostname: "${HOSTNAME}.eureka"
-  server:
-    enable-self-preservation: true  # Auto-préservation activée
   client:
-    register-with-eureka: false     # Le serveur ne s’enregistre pas lui-même
-    fetch-registry: false
+    registerWithEureka: false
+    fetchRegistry: false
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER_ADDRESS}
+      defaultZone: http://localhost:8761/eureka/
+  server:
+    enableSelfPreservation: false # Optional: Disable self-preservation for local development
+
+logging:
+  level:
+    com.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG
