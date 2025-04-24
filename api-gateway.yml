@@ -83,7 +83,7 @@ logging:
 
 eureka:
   instance:
-    hostname: aoi-gateway
+    hostname: api-gateway
     preferIpAddress: false
   client:
     serviceUrl:
