@@ -63,6 +63,8 @@ spring:
               - PUT
               - DELETE
               - PATCH
+              - OPTIONS  # Add OPTIONS to handle preflight requests
+            allowCredentials: true  # Add this to support credentials
   devtools:
     restart:
       enabled: true
