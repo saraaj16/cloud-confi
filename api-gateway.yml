@@ -26,6 +26,10 @@ spring:
           uri: http://microservice-users-authentification:8081
           predicates:
             - Path=/profile/**
+        - id: users-auth-photo
+          uri: http://microservice-users-authentification:8081
+          predicates:
+            - Path=/photo-de-profil/**
         # Project service routes
         - id: projets-route
           uri: http://microserviceprojets:8082
