@@ -9,47 +9,47 @@ spring:
       routes:
         # Authentication service routes
         - id: users-auth-public
-          uri: http://microservice-users-authentification:8081
+          uri: lb://microservice-users-authentification
           predicates:
             - Path=/auth/login,/reset-password/**
           order: -1
         - id: users-auth-missions
-          uri: http://microservice-users-authentification:8081
+          uri: lb://microservice-users-authentification
           predicates:
             - Path=/missions/**
           order: -1
         - id: users-auth-admin
-          uri: http://microservice-users-authentification:8081
+          uri: lb://microservice-users-authentification
           predicates:
             - Path=/admin/**,/admin/equipes/**
         - id: users-auth-profile
-          uri: http://microservice-users-authentification:8081
+          uri: lb://microservice-users-authentification
           predicates:
             - Path=/profile/**
         - id: users-auth-photo
-          uri: http://microservice-users-authentification:8081
+          uri: lb://microservice-users-authentification
           predicates:
             - Path=/photo-de-profil/**
         # Project service routes
         - id: projets-route
-          uri: http://microserviceprojets:8082
+          uri: lb://microserviceprojets
           predicates:
             - Path=/api/projets/**, /api/projets
         - id: templates-route
-          uri: http://microserviceprojets:8082
+          uri: lb://microserviceprojets
           predicates:
             - Path=/api/templates/**, /api/templates
         - id: etapes-projet-route
-          uri: http://microserviceprojets:8082
+          uri: lb://microserviceprojets
           predicates:
             - Path=/api/etapes-projet/**, /api/etapes-projet
         - id: etapes-template-route
-          uri: http://microserviceprojets:8082
+          uri: lb://microserviceprojets
           predicates:
             - Path=/api/etapes-template/**, /api/etapes-template
         # Default route for authentication service
         - id: users-auth-default
-          uri: http://microservice-users-authentification:8081
+          uri: lb://microservice-users-authentification
           predicates:
             - Path=/**
       globalcors:
@@ -63,8 +63,8 @@ spring:
               - PUT
               - DELETE
               - PATCH
-              - OPTIONS  # Add OPTIONS to handle preflight requests
-            allowCredentials: true  # Add this to support credentials
+              - OPTIONS
+            allowCredentials: true
   devtools:
     restart:
       enabled: true
@@ -74,6 +74,8 @@ spring:
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
+    com.netflix.discovery: DEBUG
+    com.netflix.eureka: DEBUG
 
 eureka:
   instance:
