@@ -4,65 +4,88 @@ server:
 spring:
   application:
     name: microserviceprojets
-  datasource:
-    url: jdbc:oracle:thin:@host.docker.internal:1521:XE
-    username: C##MICROPROJET
-    password: sara
-    driver-class-name: oracle.jdbc.OracleDriver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.OracleDialect
-    show-sql: true
+
   mail:
     host: smtp.gmail.com
     port: 587
-    username: Saraaitelhaj93@gmail.com
-    password: vgznulowgulssbww
+    username: "Saraaitelhaj93@gmail.com"
+    password: "vgznulowgulssbww"
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
-  cloud:
-    config:
-      uri: http://config-service:8888
+  devtools:
+    restart:
       enabled: true
+      livereload:
+        enabled: true
 
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 5000
-        readTimeout: 5000
-        loggerLevel: basic
+  datasource:
+    url: "jdbc:oracle:thin:@host.docker.internal:1521:XE"
+    username: "C##MICROPROJET"
+    password: "sara"
+    driver-class-name: "oracle.jdbc.OracleDriver"
 
-user:
-  service:
-    url: http://microservice-users-authentification:8081
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.OracleDialect
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        default_batch_fetch_size: 20
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery-service:8761/eureka/
-    healthcheck:
-      enabled: true
-  instance:
-    hostname: microserviceprojets
-    preferIpAddress: false
+  main:
+    allow-circular-references: true
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+      rest:
+        pageSerializationMode: VIA_DTO
 
 management:
   endpoints:
     web:
       exposure:
-        include: health, info
+        include: beans, health, info
   endpoint:
     health:
       show-details: always
 
+jwt:
+  secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
+  expirationMs: 86400000 # 1 jour en millisecondes
+  header: Authorization
+  prefix: Bearer
+
+eureka:
+  instance:
+    hostname: microserviceprojets
+    preferIpAddress: false
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka/
+    healthcheck:
+      enabled: true
+
 logging:
   level:
-    root: info
-    org.springframework.web: info
-    ma.inwi: debug
+    com.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud: DEBUG
+    root: error
+    org.springframework: error
+    ma.inwi.microserviceprojets: error
+
+projet:
+  service:
+    url: http://microserviceprojets:8080
+
+user:
+  service:
+    url: http://microservice-users-authentification:8080

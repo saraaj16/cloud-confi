@@ -1,74 +1,86 @@
+#microservice-users-authentification
 server:
   port: 8081
 
 spring:
   application:
     name: microservice-users-authentification
+
   datasource:
-    url: jdbc:oracle:thin:@host.docker.internal:1521:XE
-    username: C##MICROAUTH
-    password: sara
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: "jdbc:oracle:thin:@host.docker.internal:1521:XE"
+    username: "C##MICROAUTH"
+    password: "sara"
+    driver-class-name: "oracle.jdbc.OracleDriver"
+
   jpa:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.OracleDialect
     show-sql: true
+
+
   web:
     resources:
       static-locations: file:${user.profile.photo.upload-dir}/
+  main:
+    allow-circular-references: true
+
   mail:
     host: smtp.gmail.com
     port: 587
-    username: Saraaitelhaj93@gmail.com
-    password: vgznulowgulssbww
+    username: "Saraaitelhaj93@gmail.com"
+    password: "vgznulowgulssbww"
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
-  cloud:
-    config:
-      uri: http://config-service:8888
-      enabled: true
+  devtools:
+    restart:
+        enabled: true
+        livereload:
+          enabled: true
 
 user:
   profile:
     photo:
-      upload-dir: /app/photo-de-profil
+      upload-dir: "C:/Users/Swerera's laptop/Desktop/PFE/pilotage_backend/photo-de-profil"
   service:
-    url: http://microservice-users-authentification:8081
-
-projet:
-  service:
-    url: http://microserviceprojets:8082
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery-service:8761/eureka/
-    healthcheck:
-      enabled: true
-  instance:
-    hostname: microservice-users-authentification
-    preferIpAddress: false
-
-jwt:
-  secret: TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog==
-  expiration: 86400000 # 1 day in ms
+    url: http://microservice-users-authentification:8080
 
 management:
   endpoints:
     web:
       exposure:
-        include: health, info
+        include: beans, health, info
   endpoint:
     health:
       show-details: always
 
+jwt:
+  secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
+  expiration: 86400000 # 1 jour en millisecondes
+  header: Authorization
+  prefix: Bearer
+
 logging:
   level:
-    root: info
-    org.springframework.web: info
-    ma.inwi: debug
+    root: error
+    org.springframework: error
+    ma.inwi.microserviceusersauthentification: error
+
+eureka:
+  instance:
+    hostname: microservice-users-authentification
+    preferIpAddress: false
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka/
+    healthcheck:
+      enabled: true
+
+projet:
+  service:
+    url: http://microserviceprojets:8080
+
