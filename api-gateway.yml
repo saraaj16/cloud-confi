@@ -34,19 +34,19 @@ spring:
         - id: projets-route
           uri: http://microserviceprojets:8082
           predicates:
-            - Path=/api/projets/**
+            - Path=/api/projets/**, /api/projets
         - id: templates-route
           uri: http://microserviceprojets:8082
           predicates:
-            - Path=/api/templates/**
+            - Path=/api/templates/**, /api/templates
         - id: etapes-projet-route
           uri: http://microserviceprojets:8082
           predicates:
-            - Path=/api/etapes-projet/**
+            - Path=/api/etapes-projet/**, /api/etapes-projet
         - id: etapes-template-route
           uri: http://microserviceprojets:8082
           predicates:
-            - Path=/api/etapes-template/**
+            - Path=/api/etapes-template/**, /api/etapes-template
         # Default route for authentication service
         - id: users-auth-default
           uri: http://microservice-users-authentification:8081
