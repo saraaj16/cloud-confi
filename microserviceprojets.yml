@@ -83,4 +83,4 @@ logging:
     ma.inwi.microserviceprojets: error
 
 user-service:
-  url: http://microservice-users-authentification
+  url: http://microservice-users-authentification:8081
