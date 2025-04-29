@@ -80,7 +80,9 @@ logging:
     org.springframework.cloud: DEBUG
     root: error
     org.springframework: error
-    ma.inwi.microserviceprojets: error
+    org.springframework.security: DEBUG
+    ma.inwi.microserviceprojets: DEBUG
 
 user-service:
   url: http://microservice-users-authentification:8081
+
