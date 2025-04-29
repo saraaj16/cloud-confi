@@ -59,7 +59,7 @@ management:
 
 jwt:
   secret: "TmJLS8mnj7T81MOKdTIy/NZ5NzXl3JCfJNFw8+eK3meb/hcM02FNZApHxRJv+Z75ss2H4u8RjZdxJdFKbfyDog=="
-  expirationMs: 86400000 # 1 jour en millisecondes
+  expiration: 86400000 # 1 jour en millisecondes
   header: Authorization
   prefix: Bearer
 
