@@ -80,7 +80,3 @@ eureka:
     healthcheck:
       enabled: true
 
-projet:
-  service:
-    url: http://microserviceprojets:8080
-

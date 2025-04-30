@@ -83,6 +83,4 @@ logging:
     org.springframework.security: DEBUG
     ma.inwi.microserviceprojets: DEBUG
 
-user-service:
-  url: http://microservice-users-authentification:8081
 
