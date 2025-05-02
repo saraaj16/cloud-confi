@@ -47,6 +47,10 @@ spring:
           uri: lb://microserviceprojets
           predicates:
             - Path=/api/etapes-template/**, /api/etapes-template
+        - id: etapes-statut-route
+          uri: lb://microserviceprojets
+          predicates:
+          - Path=/api/statut/**, /api/statut
         # Default route for authentication service
         - id: users-auth-default
           uri: lb://microservice-users-authentification
