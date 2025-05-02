@@ -1,92 +1,101 @@
-server:
-  port: 8080
+  server:
+    port: 8080
 
-spring:
-  application:
-    name: gateway-api
-  cloud:
-    gateway:
-      routes:
-        # Authentication service routes
-        - id: users-auth-public
-          uri: lb://microservice-users-authentification
-          predicates:
-            - Path=/auth/login,/reset-password/**
-          order: -1
-        - id: users-auth-missions
-          uri: lb://microservice-users-authentification
-          predicates:
-            - Path=/missions/**
-          order: -1
-        - id: users-auth-admin
-          uri: lb://microservice-users-authentification
-          predicates:
-            - Path=/admin/**,/admin/equipes/**
-        - id: users-auth-profile
-          uri: lb://microservice-users-authentification
-          predicates:
-            - Path=/profile/**
-        - id: users-auth-photo
-          uri: lb://microservice-users-authentification
-          predicates:
-            - Path=/photo-de-profil/**
-        # Project service routes
-        - id: projets-route
-          uri: lb://microserviceprojets
-          predicates:
-            - Path=/api/projets/**, /api/projets
-        - id: templates-route
-          uri: lb://microserviceprojets
-          predicates:
-            - Path=/api/templates/**, /api/templates
-        - id: etapes-projet-route
-          uri: lb://microserviceprojets
-          predicates:
-            - Path=/api/etapes-projet/**, /api/etapes-projet
-        - id: etapes-template-route
-          uri: lb://microserviceprojets
-          predicates:
-            - Path=/api/etapes-template/**, /api/etapes-template
-        - id: etapes-statut-route
-          uri: lb://microserviceprojets
-          predicates:
-          - Path=/api/statuts/**, /api/statuts
-        # Default route for authentication service
-        - id: users-auth-default
-          uri: lb://microservice-users-authentification
-          predicates:
-            - Path=/**
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:5173"
-            allowedHeaders: "*"
-            allowedMethods:
-              - POST
-              - GET
-              - PUT
-              - DELETE
-              - PATCH
-              - OPTIONS
-            allowCredentials: true
-  devtools:
-    restart:
-      enabled: true
-      livereload:
+  spring:
+    application:
+      name: gateway-api
+    cloud:
+      gateway:
+        routes:
+          # Authentication service routes
+          - id: users-auth-public
+            uri: lb://microservice-users-authentification
+            predicates:
+              - Path=/auth/login,/reset-password/**
+            order: -1
+          - id: users-auth-missions
+            uri: lb://microservice-users-authentification
+            predicates:
+              - Path=/missions/**
+            order: -1
+          - id: users-auth-admin
+            uri: lb://microservice-users-authentification
+            predicates:
+              - Path=/admin/**,/admin/equipes/**
+            order: -1
+          - id: users-auth-profile
+            uri: lb://microservice-users-authentification
+            predicates:
+              - Path=/profile/**
+            order: -1
+          - id: users-auth-photo
+            uri: lb://microservice-users-authentification
+            predicates:
+              - Path=/photo-de-profil/**
+            order: -1
+          # Project service routes
+          - id: statuts-route
+            uri: lb://microserviceprojets
+            predicates:
+              - Path=/api/statuts/**,/api/statuts
+            order: 0
+          - id: projets-route
+            uri: lb://microserviceprojets
+            predicates:
+              - Path=/api/projets/**,/api/projets
+            order: 0
+          - id: templates-route
+            uri: lb://microserviceprojets
+            predicates:
+              - Path=/api/templates/**,/api/templates
+            order: 0
+          - id: etapes-projet-route
+            uri: lb://microserviceprojets
+            predicates:
+              - Path=/api/etapes-projet/**,/api/etapes-projet
+            order: 0
+          - id: etapes-template-route
+            uri: lb://microserviceprojets
+            predicates:
+              - Path=/api/etapes-template/**,/api/etapes-template
+            order: 0
+          # Default route for authentication service
+          - id: users-auth-default
+            uri: lb://microservice-users-authentification
+            predicates:
+              - Path=/**
+            order: 100
+        globalcors:
+          corsConfigurations:
+            '[/**]':
+              allowedOrigins: "http://localhost:5173"
+              allowedHeaders: "*"
+              allowedMethods:
+                - POST
+                - GET
+                - PUT
+                - DELETE
+                - PATCH
+                - OPTIONS
+              allowCredentials: true
+    devtools:
+      restart:
         enabled: true
+        livereload:
+          enabled: true
 
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    com.netflix.discovery: DEBUG
-    com.netflix.eureka: DEBUG
+  logging:
+    level:
+      org.springframework.cloud.gateway: DEBUG
+      com.netflix.discovery: DEBUG
+      com.netflix.eureka: DEBUG
 
-eureka:
-  instance:
-    hostname: api-gateway
-    preferIpAddress: false
-  client:
-    serviceUrl:
-      defaultZone: http://discovery-service:8761/eureka/
-    healthcheck:
-      enabled: true
+  eureka:
+    instance:
+      hostname: api-gateway
+      preferIpAddress: false
+    client:
+      serviceUrl:
+        defaultZone: http://discovery-service:8761/eureka/
+      healthcheck:
+        enabled: true
