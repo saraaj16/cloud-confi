@@ -14,7 +14,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     database-platform: org.hibernate.dialect.OracleDialect
     show-sql: true
 
@@ -66,9 +66,10 @@ jwt:
 
 logging:
   level:
-    root: error
-    org.springframework: error
-    ma.inwi.microserviceusersauthentification: error
+    root: info
+    org.springframework: info
+    ma.inwi.microserviceusersauthentification: info
+    org.hibernate: debug
 
 eureka:
   instance:
