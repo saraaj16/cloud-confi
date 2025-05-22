@@ -13,63 +13,123 @@ spring:
           predicates:
             - Path=/auth/login,/reset-password/**
           order: -1
+
         - id: users-auth-admin
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/admin/**
           order: -1
+
         - id: users-auth-profile
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/profile/**
           order: -1
+
         - id: users-auth-roles
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/roles,/roles/**
           order: -1
+
         - id: users-auth-photo
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/photo-de-profil/**
           order: -1
+
         - id: users-auth-members
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/api/membres,/api/membres/**
           order: -1
-        # Project core service routes
+
+        # Project Core Service routes
         - id: project-core-projet-membres
           uri: lb://project-core-service
           predicates:
             - Path=/api/projet-membres,/api/projet-membres/**
           order: 0
+
         - id: project-core-partie-prenantes
           uri: lb://project-core-service
           predicates:
             - Path=/api/partie-prenantes,/api/partie-prenantes/**
           order: 0
+
         - id: project-core-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/projets,/api/projets/**
           order: 0
-        - id: project-core-activites
+
+        - id: project-core-activite-projets
           uri: lb://project-core-service
           predicates:
-            - Path=/api/activites,/api/activites/**
+            - Path=/api/activite-projets,/api/activite-projets/**
           order: 0
-        - id: project-core-documents
+
+        - id: project-core-document-projets
           uri: lb://project-core-service
           predicates:
-            - Path=/api/documents,/api/documents/**
+            - Path=/api/document-projets,/api/document-projets/**
           order: 0
-        # Default route for authentication service
+
+        - id: project-core-etape-modeles
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/etape-modeles,/api/etape-modeles/**
+          order: 0
+
+        - id: project-core-etape-projets
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/etape-projets,/api/etape-projets/**
+          order: 0
+
+        - id: project-core-modele-projets
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/modele-projets,/api/modele-projets/**
+          order: 0
+
+        - id: project-core-niveau-influences
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/niveau-influences,/api/niveau-influences/**
+          order: 0
+
+        - id: project-core-statut-etapes
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/statut-etapes,/api/statut-etapes/**
+          order: 0
+
+        - id: project-core-type-activites
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/type-activites,/api/type-activites/**
+          order: 0
+
+        - id: project-core-type-etapes
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/type-etapes,/api/type-etapes/**
+          order: 0
+
+        - id: project-core-type-partie-prenantes
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/type-partie-prenantes,/api/type-partie-prenantes/**
+          order: 0
+
+        # Fallback to authentication service for all other paths
         - id: users-auth-default
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/**
           order: 100
+
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -83,6 +143,7 @@ spring:
               - PATCH
               - OPTIONS
             allowCredentials: true
+
   devtools:
     restart:
       enabled: true
