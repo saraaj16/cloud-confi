@@ -129,6 +129,10 @@ spring:
           predicates:
             - Path=/**
           order: 100
+        - id: project-core
+                  uri: lb://project-core-service
+                  predicates:
+                    - Path=/api/**
 
       globalcors:
         corsConfigurations:
@@ -143,6 +147,8 @@ spring:
               - PATCH
               - OPTIONS
             allowCredentials: true
+      default-filters:
+        - TokenRelay  # transmet le Bearer token
 
   devtools:
     restart:
@@ -165,3 +171,5 @@ eureka:
       defaultZone: http://discovery-service:8761/eureka/
     healthcheck:
       enabled: true
+
+
