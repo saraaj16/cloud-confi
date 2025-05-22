@@ -1,3 +1,4 @@
+# src/main/resources/application.yml
 server:
   port: 8080
 
@@ -5,25 +6,27 @@ spring:
   application:
     name: gateway-api
 
+  # Import depuis Config Server (fail silently si indisponible)
+  config:
+    import: "optional:configserver:http://config-service:8888"
+
   cloud:
     config:
       enabled: true
       uri: http://config-service:8888
 
     gateway:
-      # Filtres par défaut (transmission du token)
       default-filters:
         - TokenRelay
 
-      # Configuration CORS globale
       globalcors:
         corsConfigurations:
           "[/**]":
             allowedOrigins: "http://localhost:5173"
             allowedHeaders: "*"
             allowedMethods:
-              - POST
               - GET
+              - POST
               - PUT
               - DELETE
               - PATCH
@@ -147,25 +150,26 @@ spring:
             - Path=/api/type-partie-prenantes,/api/type-partie-prenantes/**
           order: 0
 
-        # Fallback : tout le reste va sur l’authentification
+        # Fallback to auth for everything else
         - id: users-auth-default
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/**
           order: 100
 
-        # (Optionnel) fallback sur project-core pour /api/**
         - id: project-core-default
           uri: lb://project-core-service
           predicates:
             - Path=/api/**
           order: 101
+
+  # <<<=== AJOUT pour le Resource Server HS512
   security:
     oauth2:
-          resourceserver:
-            jwt:
-              secret-key: L5dyHWlg3wwlRJH5dpI+9eGBkQH/W/ZyeR3EwCdaJioBix86eVktAc9TVC/j/z2VVw9JnWFjR5YtT/F7KqHoDA==
-              jws-algorithm: HS512
+      resourceserver:
+        jwt:
+          secret-key: L5dyHWlg3wwlRJH5dpI+9eGBkQH/W/ZyeR3EwCdaJioBix86eVktAc9TVC/j/z2VVw9JnWFjR5YtT/F7KqHoDA==
+          jws-algorithm: HS512
 
 devtools:
   restart:
@@ -175,9 +179,9 @@ devtools:
 
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
-    com.netflix.discovery: DEBUG
-    com.netflix.eureka: DEBUG
+    org.springframework.cloud.gateway: INFO
+    com.netflix.discovery: INFO
+    org.springframework.security.oauth2.jwt: DEBUG
 
 eureka:
   instance:
