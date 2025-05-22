@@ -4,8 +4,36 @@ server:
 spring:
   application:
     name: gateway-api
+
+  # Importer les propriétés depuis Config Server (fail silencieux si indisponible)
+  config:
+    import: "optional:configserver:http://config-service:8888"
+
   cloud:
+    config:
+      enabled: true
+      uri: http://config-service:8888
+
     gateway:
+      # Filtres par défaut (transmission du token)
+      default-filters:
+        - TokenRelay
+
+      # Configuration CORS globale
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins: "http://localhost:5173"
+            allowedHeaders: "*"
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowCredentials: true
+
       routes:
         # Authentication service routes
         - id: users-auth-public
@@ -123,38 +151,25 @@ spring:
             - Path=/api/type-partie-prenantes,/api/type-partie-prenantes/**
           order: 0
 
-        # Fallback to authentication service for all other paths
+        # Fallback : tout le reste va sur l’authentification
         - id: users-auth-default
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/**
           order: 100
-        - id: project-core
-                  uri: lb://project-core-service
-                  predicates:
-                    - Path=/api/**
 
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:5173"
-            allowedHeaders: "*"
-            allowedMethods:
-              - POST
-              - GET
-              - PUT
-              - DELETE
-              - PATCH
-              - OPTIONS
-            allowCredentials: true
-      default-filters:
-        - TokenRelay  # transmet le Bearer token
+        # (Optionnel) fallback sur project-core pour /api/**
+        - id: project-core-default
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/**
+          order: 101
 
-  devtools:
-    restart:
-      enabled: true
-    livereload:
-      enabled: true
+devtools:
+  restart:
+    enabled: true
+  livereload:
+    enabled: true
 
 logging:
   level:
@@ -171,5 +186,3 @@ eureka:
       defaultZone: http://discovery-service:8761/eureka/
     healthcheck:
       enabled: true
-
-
