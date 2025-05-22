@@ -164,7 +164,6 @@ spring:
     oauth2:
           resourceserver:
             jwt:
-              jwk-set-uri: http://microservice-users-authentification:8080/.well-known/jwks.json
               secret-key: L5dyHWlg3wwlRJH5dpI+9eGBkQH/W/ZyeR3EwCdaJioBix86eVktAc9TVC/j/z2VVw9JnWFjR5YtT/F7KqHoDA==
               jws-algorithm: HS512
 
