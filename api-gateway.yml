@@ -33,31 +33,36 @@ spring:
           predicates:
             - Path=/photo-de-profil/**
           order: -1
-        # Project service routes
-        - id: statuts-route
-          uri: lb://microserviceprojets
+        - id: users-auth-members
+          uri: lb://microservice-users-authentification
           predicates:
-            - Path=/api/statuts/**,/api/statuts
+            - Path=/api/membres,/api/membres/**
+          order: -1
+        # Project core service routes
+        - id: project-core-projet-membres
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/projet-membres,/api/projet-membres/**
           order: 0
-        - id: projets-route
-          uri: lb://microserviceprojets
+        - id: project-core-partie-prenantes
+          uri: lb://project-core-service
           predicates:
-            - Path=/api/projets/**,/api/projets
+            - Path=/api/partie-prenantes,/api/partie-prenantes/**
           order: 0
-        - id: templates-route
-          uri: lb://microserviceprojets
+        - id: project-core-projets
+          uri: lb://project-core-service
           predicates:
-            - Path=/api/templates/**,/api/templates
+            - Path=/api/projets,/api/projets/**
           order: 0
-        - id: etapes-projet-route
-          uri: lb://microserviceprojets
+        - id: project-core-activites
+          uri: lb://project-core-service
           predicates:
-            - Path=/api/etapes-projet/**,/api/etapes-projet
+            - Path=/api/activites,/api/activites/**
           order: 0
-        - id: etapes-template-route
-          uri: lb://microserviceprojets
+        - id: project-core-documents
+          uri: lb://project-core-service
           predicates:
-            - Path=/api/etapes-template/**,/api/etapes-template
+            - Path=/api/documents,/api/documents/**
           order: 0
         # Default route for authentication service
         - id: users-auth-default

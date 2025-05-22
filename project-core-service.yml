@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: microserviceprojets
+    name: project-core-service
 
   mail:
     host: smtp.gmail.com
@@ -65,7 +65,7 @@ jwt:
 
 eureka:
   instance:
-    hostname: microserviceprojets
+    hostname: project-core-service
     preferIpAddress: false
   client:
     serviceUrl:
@@ -81,6 +81,6 @@ logging:
     root: error
     org.springframework: error
     org.springframework.security: DEBUG
-    ma.inwi.microserviceprojets: DEBUG
+    ma.inwi.projectcoreservice: DEBUG
 
 
