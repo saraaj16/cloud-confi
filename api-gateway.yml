@@ -160,6 +160,11 @@ spring:
           predicates:
             - Path=/api/**
           order: 101
+  security:
+    oauth2:
+          resourceserver:
+            jwt:
+              jwk-set-uri: http://microservice-users-authentification:8080/.well-known/jwks.json
 
 devtools:
   restart:
