@@ -1,10 +1,6 @@
-server:
-  port: 8082
+# Ce fichier porte le même nom que spring.application.name (project-core-service.yml).
 
 spring:
-  application:
-    name: project-core-service
-
   mail:
     host: smtp.gmail.com
     port: 587
@@ -16,11 +12,12 @@ spring:
           auth: true
           starttls:
             enable: true
+
   devtools:
     restart:
       enabled: true
-      livereload:
-        enabled: true
+    livereload:
+      enabled: true
 
   datasource:
     url: "jdbc:oracle:thin:@host.docker.internal:1521:XE"
@@ -41,17 +38,19 @@ spring:
 
   main:
     allow-circular-references: true
+
   data:
     web:
       pageable:
         default-page-size: 10
-      rest:
-        pageSerializationMode: VIA_DTO
+    rest:
+      pageSerializationMode: VIA_DTO
+
   security:
     oauth2:
-          resourceserver:
-            jwt:
-              jwk-set-uri: http://localhost:8081/.well-known/jwks.json
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8081/.well-known/jwks.json
 
 management:
   endpoints:
@@ -62,14 +61,10 @@ management:
     health:
       show-details: always
 
-jwt:
-  secret-key: L5dyHWlg3wwlRJH5dpI+9eGBkQH/W/ZyeR3EwCdaJioBix86eVktAc9TVC/j/z2VVw9JnWFjR5YtT/F7KqHoDA==
-  jws-algorithm: HS512
-
 eureka:
   instance:
     hostname: project-core-service
-    preferIpAddress: false
+    prefer-ip-address: false
   client:
     serviceUrl:
       defaultZone: http://discovery-service:8761/eureka/
@@ -81,9 +76,6 @@ logging:
     com.netflix.eureka: DEBUG
     com.netflix.discovery: DEBUG
     org.springframework.cloud: DEBUG
-    root: error
-    org.springframework: error
+    root: ERROR
     org.springframework.security: DEBUG
     ma.inwi.projectcoreservice: DEBUG
-
-
