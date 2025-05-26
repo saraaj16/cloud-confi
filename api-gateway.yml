@@ -66,7 +66,7 @@ spring:
             - Path=/api/membres,/api/membres/**
           order: -1
 
-        # 2) Route explicite POST /api/parties-prenantes/assigner
+        # 2) Route explicite pour POST /api/parties-prenantes/assigner
         - id: project-core-parties-assigner
           uri: lb://project-core-service
           predicates:
@@ -75,7 +75,7 @@ spring:
             - TokenRelay
           order: 0
 
-        # 3) Toutes les autres routes project-core-service
+        # 3) Routes rest of project-core-service
         - id: project-core-projet-membres
           uri: lb://project-core-service
           predicates:
@@ -166,13 +166,13 @@ spring:
           predicates:
             - Path=/api/**
           order: 101
+
   security:
     oauth2:
-          resourceserver:
-            jwt:
-              secret-key: L5dyHWlg3wwlRJH5dpI+9eGBkQH/W/ZyeR3EwCdaJioBix86eVktAc9TVC/j/z2VVw9JnWFjR5YtT/F7KqHoDA==
-              jws-algorithm: HS512
-
+      resourceserver:
+        jwt:
+          secret-key: L5dyHWlg3wwlRJH5dpI+9eGBkQH/W/ZyeR3EwCdaJioBix86eVktAc9TVC/j/z2VVw9JnWFjR5YtT/F7KqHoDA==
+          jws-algorithm: HS512
 
 devtools:
   restart:
