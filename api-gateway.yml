@@ -69,7 +69,7 @@ spring:
         - id: project-core-partie-prenantes
           uri: lb://project-core-service
           predicates:
-            - Path=/api/partie-prenantes,/api/partie-prenantes/**
+            - Path=/api/parties-prenantes,/api/parties-prenantes/**
           order: 0
         - id: project-core-projets
           uri: lb://project-core-service
