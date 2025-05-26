@@ -29,142 +29,193 @@ spring:
             allowCredentials: true
 
       routes:
-        # 1) Routes utilisateurs/auth
+        # 1) Auth public
         - id: users-auth-public
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/auth/login,/reset-password/**
           order: -1
 
+        # 2) Auth admin
         - id: users-auth-admin
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/admin/**
           order: -1
 
+        # 3) Auth profile
         - id: users-auth-profile
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/profile/**
           order: -1
 
+        # 4) Auth roles
         - id: users-auth-roles
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/roles,/roles/**
           order: -1
 
+        # 5) Auth photo
         - id: users-auth-photo
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/photo-de-profil/**
           order: -1
 
+        # 6) Auth members
         - id: users-auth-members
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/api/membres,/api/membres/**
           order: -1
 
-        # 2) Route explicite pour POST /api/parties-prenantes/assigner
+        # 7) POST /api/parties-prenantes/assigner (needs strip-prefix so service context-path /api works)
         - id: project-core-parties-assigner
           uri: lb://project-core-service
           predicates:
             - Path=/api/parties-prenantes/assigner
           filters:
             - TokenRelay
+            - StripPrefix=1
           order: 0
 
-        # 3) Routes rest of project-core-service
+        # 8) Projet–membres
         - id: project-core-projet-membres
           uri: lb://project-core-service
           predicates:
             - Path=/api/projet-membres,/api/projet-membres/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 1
 
+        # 9) Partie–prenantes (tous les autres appels)
         - id: project-core-partie-prenantes
           uri: lb://project-core-service
           predicates:
             - Path=/api/parties-prenantes,/api/parties-prenantes/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 2
 
+        # 10) Autres services project-core
         - id: project-core-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/projets,/api/projets/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 3
 
         - id: project-core-activite-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/activite-projets,/api/activite-projets/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 4
 
         - id: project-core-document-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/document-projets,/api/document-projets/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 5
 
         - id: project-core-etape-modeles
           uri: lb://project-core-service
           predicates:
             - Path=/api/etape-modeles,/api/etape-modeles/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 6
 
         - id: project-core-etape-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/etape-projets,/api/etape-projets/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 7
 
         - id: project-core-modele-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/modele-projets,/api/modele-projets/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 8
 
         - id: project-core-niveau-influences
           uri: lb://project-core-service
           predicates:
             - Path=/api/niveau-influences,/api/niveau-influences/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 9
 
         - id: project-core-statut-etapes
           uri: lb://project-core-service
           predicates:
             - Path=/api/statut-etapes,/api/statut-etapes/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 10
 
         - id: project-core-type-activites
           uri: lb://project-core-service
           predicates:
             - Path=/api/type-activites,/api/type-activites/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 11
 
         - id: project-core-type-etapes
           uri: lb://project-core-service
           predicates:
             - Path=/api/type-etapes,/api/type-etapes/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 12
 
         - id: project-core-type-partie-prenantes
           uri: lb://project-core-service
           predicates:
             - Path=/api/type-partie-prenantes,/api/type-partie-prenantes/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 13
 
-        # 4) Fallbacks
+        # 11) Fallback user-auth
         - id: users-auth-default
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/**
           order: 100
 
+        # 12) Fallback project-core (tout le reste de /api/**)
         - id: project-core-default
           uri: lb://project-core-service
           predicates:
             - Path=/api/**
+          filters:
+            - TokenRelay
+            - StripPrefix=1
           order: 101
 
   security:
