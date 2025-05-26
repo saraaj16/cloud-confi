@@ -166,14 +166,13 @@ spring:
           predicates:
             - Path=/api/**
           order: 101
-
-spring:
   security:
     oauth2:
-      resourceserver:
-        jwt:
-          secret-key: L5dyHWlg3wwlRJH5dpI+9eGBkQH/W/ZyeR3EwCdaJioBix86eVktAc9TVC/j/z2VVw9JnWFjR5YtT/F7KqHoDA==
-          jws-algorithm: HS512
+          resourceserver:
+            jwt:
+              secret-key: L5dyHWlg3wwlRJH5dpI+9eGBkQH/W/ZyeR3EwCdaJioBix86eVktAc9TVC/j/z2VVw9JnWFjR5YtT/F7KqHoDA==
+              jws-algorithm: HS512
+
 
 devtools:
   restart:
