@@ -81,3 +81,6 @@ eureka:
     healthcheck:
       enabled: true
 
+membres:
+  service:
+    url: http://localhost:8081/api/membres
