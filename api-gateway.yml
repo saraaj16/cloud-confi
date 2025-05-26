@@ -1,4 +1,3 @@
-# src/main/resources/application.yml
 server:
   port: 8080
 
@@ -30,115 +29,145 @@ spring:
             allowCredentials: true
 
       routes:
+        # 1) Routes utilisateurs/auth
         - id: users-auth-public
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/auth/login,/reset-password/**
           order: -1
+
         - id: users-auth-admin
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/admin/**
           order: -1
+
         - id: users-auth-profile
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/profile/**
           order: -1
+
         - id: users-auth-roles
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/roles,/roles/**
           order: -1
+
         - id: users-auth-photo
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/photo-de-profil/**
           order: -1
+
         - id: users-auth-members
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/api/membres,/api/membres/**
           order: -1
 
+        # 2) Route explicite POST /api/parties-prenantes/assigner
+        - id: project-core-parties-assigner
+          uri: lb://project-core-service
+          predicates:
+            - Path=/api/parties-prenantes/assigner
+          filters:
+            - TokenRelay
+          order: 0
+
+        # 3) Toutes les autres routes project-core-service
         - id: project-core-projet-membres
           uri: lb://project-core-service
           predicates:
             - Path=/api/projet-membres,/api/projet-membres/**
-          order: 0
+          order: 1
+
         - id: project-core-partie-prenantes
           uri: lb://project-core-service
           predicates:
             - Path=/api/parties-prenantes,/api/parties-prenantes/**
-          order: 0
+          order: 2
+
         - id: project-core-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/projets,/api/projets/**
-          order: 0
+          order: 3
+
         - id: project-core-activite-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/activite-projets,/api/activite-projets/**
-          order: 0
+          order: 4
+
         - id: project-core-document-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/document-projets,/api/document-projets/**
-          order: 0
+          order: 5
+
         - id: project-core-etape-modeles
           uri: lb://project-core-service
           predicates:
             - Path=/api/etape-modeles,/api/etape-modeles/**
-          order: 0
+          order: 6
+
         - id: project-core-etape-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/etape-projets,/api/etape-projets/**
-          order: 0
+          order: 7
+
         - id: project-core-modele-projets
           uri: lb://project-core-service
           predicates:
             - Path=/api/modele-projets,/api/modele-projets/**
-          order: 0
+          order: 8
+
         - id: project-core-niveau-influences
           uri: lb://project-core-service
           predicates:
             - Path=/api/niveau-influences,/api/niveau-influences/**
-          order: 0
+          order: 9
+
         - id: project-core-statut-etapes
           uri: lb://project-core-service
           predicates:
             - Path=/api/statut-etapes,/api/statut-etapes/**
-          order: 0
+          order: 10
+
         - id: project-core-type-activites
           uri: lb://project-core-service
           predicates:
             - Path=/api/type-activites,/api/type-activites/**
-          order: 0
+          order: 11
+
         - id: project-core-type-etapes
           uri: lb://project-core-service
           predicates:
             - Path=/api/type-etapes,/api/type-etapes/**
-          order: 0
+          order: 12
+
         - id: project-core-type-partie-prenantes
           uri: lb://project-core-service
           predicates:
             - Path=/api/type-partie-prenantes,/api/type-partie-prenantes/**
-          order: 0
+          order: 13
 
+        # 4) Fallbacks
         - id: users-auth-default
           uri: lb://microservice-users-authentification
           predicates:
             - Path=/**
           order: 100
+
         - id: project-core-default
           uri: lb://project-core-service
           predicates:
             - Path=/api/**
           order: 101
 
-  # <<<=== BLOCK DE VALIDATION JWT HS512 POUR LE GATEWAY
+spring:
   security:
     oauth2:
       resourceserver:
